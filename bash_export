@@ -1,0 +1,13 @@
+## .bash_export
+
+export PATH=$PATH:~/.opt/bin
+
+export EDITOR=nano
+export PAGER=less
+
+export SENDMAIL=msmtp
+
+export HISTCONTROL=ignoredups # Ne pas mettre en double ds l'hist, des cmd tappées 2x
+export HISTSIZE=5000          # Lignes de l'hist par session bash
+export HISTFILESIZE=20000     # Lignes de l'hist conservées
+

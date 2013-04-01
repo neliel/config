@@ -1,0 +1,11 @@
+## .bash_alias
+
+alias grep='grep --color=auto'
+
+alias vi='vim'
+alias em='emacs'
+alias del='rm -rf'
+
+alias scr='screen -r'
+alias ssh='ssh -C4'
+

@@ -1,0 +1,6 @@
+## .bash_source
+
+. ~/.bash_export
+. ~/.bash_alias
+. ~/.bash_ps1
+

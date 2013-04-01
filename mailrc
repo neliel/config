@@ -1,0 +1,6 @@
+## .mailrc
+
+set sendmail=$SENDMAIL
+set stealthmua
+
+#EOF

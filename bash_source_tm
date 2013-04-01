@@ -1,0 +1,5 @@
+## .bash_source_tm
+
+. ~/.bash_alias_tm
+. ~/.bash_export_tm
+

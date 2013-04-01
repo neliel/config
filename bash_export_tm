@@ -1,0 +1,6 @@
+## .bash_export_tm
+
+[ -d ~/.cabal/bin ] && PATH=$PATH:~/.cabal/bin
+
+export PATH
+

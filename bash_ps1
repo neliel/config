@@ -1,0 +1,12 @@
+## .bash_ps1
+
+. ~/.bash_colors
+
+if [ -n "$SSH_CLIENT" ]; then
+    PS1="\[$txtylw\][\u@\h \W]\$ \[$txtrst\]"
+elif [ ${EUID} == 0 ]; then
+    PS1="\[$txtred\][\u@\h \W]\$ \[$txtrst\]"
+else
+    PS1="\[$txtwht\]\$? \$(if [ \$? == 0 ]; then echo \"\[$txtgrn\]\342\234\223\"; else echo \"\[$txtred\]\342\234\227\"; fi) \[$txtcyn\]\u\[$txtrst\] ( \[$txtblu\]\w\[$txtrst\] ) $ "
+fi
+
