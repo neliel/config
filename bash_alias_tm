@@ -6,8 +6,7 @@ alias gv='gvim'
 ## Applications:
 alias rtorrent='screen rtorrent'
 alias fetchmail='fetchmail -v >> ~/Documents/log/fetchmail.log 2>&1'
-alias lisp='clisp -q -modern -L french'
-alias pacman='PACMAN=/usr/bin/pacman; [ -f /usr/bin/pacman-color ] && PACMAN=/usr/bin/pacman-color; $PACMAN $@'
+
 
 ## Permissions:
 alias pshow='chmod u+rwx ~/Téléchargements/.restricted'
