@@ -17,7 +17,7 @@ main = xmonad =<< xmobar myConf
 -- Main configuration, override the defaults to your liking.
 myConf = defaultConfig
     { modMask    = mod4Mask
-    , terminal   = "urxvtc"
+    , terminal   = "urxvt"
     , layoutHook = myLayout
     , workspaces = myWorkspaces
     , manageHook = myManageHook <+> manageHook defaultConfig
@@ -26,16 +26,17 @@ myConf = defaultConfig
 
 -- | Workspaces redirection
 myManageHook = composeAll
-    [ className =? "Chromium" --> doShift "3:web"
-    , className =? "Spacefm"  --> doShift "4:browse"
-    , className =? "Pidgin"   --> doShift "5:connect"
+    [ className =? "Emacs"     --> doShift "2:edit"
+    , className =? "Firefox"   --> doShift "3:web"
+    , className =? "Nautilus"  --> doShift "4:browse"
+    , className =? "Pidgin"    --> doShift "5:connect"
     ]
 
 -- | Keyboard keys
 keysToAdd x =
     [ ((mod4Mask, xK_F4          ), kill            )
-    , ((mod4Mask, xF86XK_WWW     ), spawn "chromium")
-    , ((mod4Mask, xF86XK_HomePage), spawn "spacefm" )
+    , ((mod4Mask, xF86XK_WWW     ), spawn "firefox")
+    , ((mod4Mask, xF86XK_HomePage), spawn "nautilus" )
     , ((mod4Mask, xF86XK_Search  ), spawn "pidgin"  )
     ]
 
@@ -65,4 +66,4 @@ myLayout = pidgin $ Mirror tiled ||| tiled ||| Full
         ratio = 2/3
         -- Percent of screen to increment by when resizing panes
         delta = 5/100
---EOF
+--eof

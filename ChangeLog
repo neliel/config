@@ -1,0 +1,6 @@
+Version 1.0.0:
+	- .emacs to be taken to the next level using the heavily customized Win32 version.
+	- .xmobarrc now uses Inconlata fonts
+	- .rtorrent.rc changed bandwidth settings and default directory as it is currently not the default client
+	- Changed default apps in xmonad. Keybindings are the same (to be changed).
+	- Added screen rtorrent and emacs's aliases to .bash_alias_tm

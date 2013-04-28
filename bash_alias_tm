@@ -2,9 +2,11 @@
 
 ## Editors
 alias gv='gvim'
+alias em='emacs'
 
 ## Applications:
 alias rtorrent='screen rtorrent'
+alias irssi='screen irssi'
 alias fetchmail='fetchmail -v >> ~/Documents/log/fetchmail.log 2>&1'
 
 
@@ -16,4 +18,3 @@ alias phide='chmod u-rwx ~/Téléchargements/.restricted'
 alias cdv='cd ~/Workplace'
 alias cdb='cd ~/Bureau'
 alias cdt='cd ~/Téléchargements'
-

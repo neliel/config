@@ -1,6 +1,7 @@
-Config { bgColor = "black"
-       , fgColor = "grey"
-       , position = Top
+Config { bgColor      = "black"
+       , fgColor      = "grey"
+       , position     = Top
+       , font         = "-*-Inconsolata-*-12-*-*-*-*-*-*-*"
        , lowerOnStart = True
        , commands =
            [ Run StdinReader
@@ -10,8 +11,7 @@ Config { bgColor = "black"
            , Run Com "uname" ["-s","-r"] "" 36000
            , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
            ]
-       , sepChar = "%"
-       , alignSep = "}{"
-       , template = "<fc=#ee9a00>%date%</fc> | %uname% | %StdinReader% }{ %cpu% | %memory% | %eth0%"
+       , sepChar      = "%"
+       , alignSep     = "}{"
+       , template     = "<fc=#ee9a00>%date%</fc> | %uname% | %StdinReader% }{ %cpu% | %memory% | %eth0%"
        }
-
