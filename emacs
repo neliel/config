@@ -30,14 +30,25 @@
 
 ; -----------------------------------------------------------------------------
 
+;; emacs23-debian
+
+(require 'color-theme)
+(add-to-list 'load-path "~/.emacs.d/site-lisp/emacs-color-theme-solarized")
+(require 'color-theme-solarized)
+(color-theme-solarized-light)
+
+(delete-selection-mode 1)
+
+; -----------------------------------------------------------------------------
+
 ;; *nix
 (set-default-font "Inconsolata-11")
 
 ; -----------------------------------------------------------------------------
 
-;; Frame settings
+;; Frame settings for current desktop
 (setq default-frame-alist
-  '((top . 99) (left . 16)
+  '((top . 10) (left . 5)
     (width . 84) (height . 42)))
 
 ; -----------------------------------------------------------------------------
@@ -49,9 +60,6 @@
 
 (setq custom-file "~/.emacs.d/emacs-custom.el")
 (load custom-file)
-
-(add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-color-theme-solarized")
-(load-theme 'solarized-light t)
 
 ; -----------------------------------------------------------------------------
 
@@ -89,28 +97,27 @@
 ;; ECR (IRC client)
 ;; http://emacs-fu.blogspot.fr/2009/06/erc-emacs-irc-client.html
 (require 'erc)
+(require 'erc-dcc)
 
 (erc-autojoin-mode t) ; joining && autojoing
-; make sure to use wildcards for e.g. freenode as the actual server
-; name can be be a bit different, which would screw up autoconnect
 (setq erc-autojoin-channels-alist
   '((".*\\.freenode.net" "#haskell" "#haskell-fr")))
 
-(erc-track-mode t) ; check channels
+(erc-track-mode t)
 (setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
 				"324" "329" "332" "333" "353" "477"))
 
-(setq erc-hide-list '("JOIN" "PART" "QUIT" "NICK")) ; don't show any of this
+(setq erc-hide-list '("JOIN" "PART" "QUIT" "NICK"))
 
-(global-set-key (kbd "C-c e") 'erc-start-or-switch) ; convenient shortcut
+(global-set-key (kbd "C-c e") 'erc-start-or-switch)
 
 (defun erc-start-or-switch ()
   "Connect to ERC, or switch to last active buffer"
   (interactive)
-  (if (get-buffer "irc.freenode.net:6667") ; ERC already active?
-      (erc-track-switch-buffer 1) ; yes: switch to last active
-    (when (y-or-n-p "Start ERC? ") ; no: maybe start ERC
-      (erc :server "irc.freenode.net" :port 6667 :nick "ratalparatil" :full-name "Ele Pal"))))
+  (if (get-buffer "irc.freenode.net:6667")
+      (erc-track-switch-buffer 1)
+    (when (y-or-n-p "Start ERC? ")
+      (erc :server "irc.freenode.net" :port 6667 :nick "sarfraz_0" :full-name "Sarfraz K."))))
 
 ; -----------------------------------------------------------------------------
 
@@ -118,7 +125,6 @@
 (defalias 'perl-mode 'cperl-mode)
 
 ; -----------------------------------------------------------------------------
-
 ;; Haskell support
 (load "haskell-mode/haskell-site-file.el")
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
@@ -126,20 +132,36 @@
 
 ; -----------------------------------------------------------------------------
 ;; AUCTeX
-(load "site-start.d/auctex.el" nil t t)
-(load "site-start.d/preview-latex.el" nil t t)
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t)
 
 ; -----------------------------------------------------------------------------
 ;; CEDET
 (global-ede-mode 1) ; enable the Project management system
 
 (add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
+(add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-local-symbol-highlight-mode)
 (require 'semantic/ia)
 
 (semantic-mode 1)
+
+; -----------------------------------------------------------------------------
+;; WhiteSpace
+
+(require 'whitespace)
+(setq whitespace-style
+  (quote (spaces tabs newline space-mark tab-mark newline-mark)) )
+(setq whitespace-display-mappings
+'((space-mark 32 [183] [46])
+  (newline-mark 10 [182 10])
+  (tab-mark 9 [9655 9] [92 9])) )
+
+; -----------------------------------------------------------------------------
+;; AutoComplete
+
+(require 'auto-complete-config)
+(ac-config-default)
 
 ; -----------------------------------------------------------------------------
 ;; Insert filename

@@ -8,5 +8,14 @@
 	_ .emacs refractoring done
 		- OrgMode support enabled
 		- CEDET semantic and EDE support enabled
-		- Custom insert function and keybindings added
+		- Custom insert function and keybindings
 		- Separator between parts added
+*Version 1.0.2-mint
+	- new branch for mint
+	- emacs file is now emacs23 and *nix
+		- ratalparatil for erc as it is public file
+		- solarized theme uses theme extension
+		- backspace delete enabled
+	- added mplayer config
+	- misc changes in bashrc
+	- gitignore updated

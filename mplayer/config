@@ -1,0 +1,16 @@
+# Write your default config options here!
+
+# Display settings
+aspect=16:10
+fstype=none
+
+# Set subtitle file encoding
+unicode=yes
+utf8=yes
+
+# Extras
+idx=yes              # {means you can seek in a file that is still downloading}
+softvol=1            # {activate softvol and softvol-max if you need more volume in general, between 10 and 10000}
+softvol-max=400
+
+#eof

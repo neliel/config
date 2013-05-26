@@ -5,10 +5,8 @@ alias gv='gvim'
 alias em='emacs'
 
 ## Applications:
-alias rtorrent='screen rtorrent'
-alias irssi='screen irssi'
 alias fetchmail='fetchmail -v >> ~/Documents/log/fetchmail.log 2>&1'
-
+alias scpan='perl -MCPAN -e shell'
 
 ## Permissions:
 alias pshow='chmod u+rwx ~/Téléchargements/.restricted'

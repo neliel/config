@@ -66,10 +66,7 @@ cnoremap qq bd<Enter>
 
 set spelllang=fr,en
 
-call pathogen#infect() " Enable the /autoload/pathogen plugin to manage the /bunble/* plugins
-
-set bg=light
-colorscheme solarized
+colorscheme torte
 
 nnoremap <F2> :set spell! spell?<CR>
 nnoremap <F4> :%!indent<CR>

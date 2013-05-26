@@ -12,4 +12,4 @@ alias ll='ls --format=verbose --human-readable'
 . ~/.bash_source
 . ~/.bash_source_tm
 
-#EOF
+#eof
