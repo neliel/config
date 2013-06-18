@@ -30,19 +30,19 @@
 
 ; -----------------------------------------------------------------------------
 
-;; emacs23-debian
+;; emacs23
 
 (require 'color-theme)
 (add-to-list 'load-path "~/.emacs.d/site-lisp/emacs-color-theme-solarized")
 (require 'color-theme-solarized)
-(color-theme-solarized-light)
+(color-theme-solarized-dark)
 
 (delete-selection-mode 1)
 
 ; -----------------------------------------------------------------------------
 
-;; *nix
-(set-default-font "Inconsolata-11")
+;; debian-mint
+(set-default-font "Inconsolata-12")
 
 ; -----------------------------------------------------------------------------
 
@@ -77,6 +77,8 @@
 ;; Keybindings
 (global-set-key (kbd "C-c s") 'eshell)
 (global-set-key [f4] 'kill-this-buffer)
+(global-set-key (kbd "<XF86Forward>") 'next-buffer)
+(global-set-key (kbd "<XF86Back>")  'previous-buffer)
 
 ; -----------------------------------------------------------------------------
 
@@ -122,7 +124,7 @@
 ; -----------------------------------------------------------------------------
 
 ;; "Brevety is the soul of wit <foo@acm.org>
-(defalias 'perl-mode 'cperl-mode)
+;(defalias 'perl-mode 'cperl-mode)
 
 ; -----------------------------------------------------------------------------
 ;; Haskell support
@@ -147,21 +149,41 @@
 (semantic-mode 1)
 
 ; -----------------------------------------------------------------------------
-;; WhiteSpace
-
-(require 'whitespace)
-(setq whitespace-style
-  (quote (spaces tabs newline space-mark tab-mark newline-mark)) )
-(setq whitespace-display-mappings
-'((space-mark 32 [183] [46])
-  (newline-mark 10 [182 10])
-  (tab-mark 9 [9655 9] [92 9])) )
-
-; -----------------------------------------------------------------------------
 ;; AutoComplete
 
 (require 'auto-complete-config)
 (ac-config-default)
+
+; -----------------------------------------------------------------------------
+
+;; Ido mode
+;; http://www.emacswiki.org/cgi-bin/wiki/InteractivelyDoThings
+(require 'ido)
+(ido-mode 'both)
+(setq
+  ido-save-directory-list-file "~/.emacs.d/ido.last"
+  ido-case-fold  t
+  ido-enable-last-directory-history t
+  ido-max-work-directory-list 30
+  ido-max-work-file-list 50
+  ido-use-filename-at-point nil
+  ido-use-url-at-point nil
+  ido-enable-flex-matching nil
+  ido-max-prospects 5
+  ido-confirm-unique-completion t)
+
+ (setq confirm-nonexistent-file-or-buffer nil)
+
+; -----------------------------------------------------------------------------
+;; Sepia
+(defalias 'perl-mode 'sepia-mode)
+(require 'sepia)
+
+; -----------------------------------------------------------------------------
+;; Slime
+(setq inferior-lisp-program "/usr/bin/sbcl")
+(require 'slime)
+(slime-setup)
 
 ; -----------------------------------------------------------------------------
 ;; Insert filename
