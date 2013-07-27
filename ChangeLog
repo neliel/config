@@ -1,21 +1,28 @@
-*Version 1.0.0:
-	- .emacs to be taken to the next level using the heavily customized Win32 version
-	- .xmobarrc now uses Inconsolata fonts
-	- .rtorrent.rc changed bandwidth settings and default directory as it is currently not the default client
-	- Changed default apps in xmonad. Keybindings are the same (to be changed)
-	- Added screen rtorrent and emacs's aliases to .bash_alias_tm
-*Version 1.0.1:
-	_ .emacs refractoring done
+* 1.0.0
+	+ .emacs to be taken to the next level using the heavily customized Win32 version
+	+ .xmobarrc now uses Inconsolata fonts
+	+ .rtorrent.rc changed bandwidth settings and default directory as it is currently not the default client
+	+ Changed default apps in xmonad. Keybindings are the same (to be changed)
+	+ Added screen rtorrent and emacs's aliases to .bash_alias_tm
+
+* 1.0.1
+	+ .emacs refractoring done
 		- OrgMode support enabled
 		- CEDET semantic and EDE support enabled
 		- Custom insert function and keybindings
 		- Separator between parts added
-*Version 1.0.2-mint
-	- new branch for mint
-	- emacs file is now emacs23 and *nix
+
+* 1.0.2-mint
+	+ new branch for mint
+	+ emacs file is now emacs23 and *nix
 		- ratalparatil for erc as it is public file
 		- solarized theme uses theme extension
 		- backspace delete enabled
-	- added mplayer config
-	- misc changes in bashrc
-	- gitignore updated
+	+ added mplayer config
+	+ misc changes in bashrc
+	+ gitignore updated
+
+* 1.0.3
+	+ new format for ChangeLog
+	+ returned to vim so updated config
+	+ deleted all branches exept master

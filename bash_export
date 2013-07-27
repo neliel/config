@@ -2,7 +2,7 @@
 
 export PATH=$PATH:~/.opt/bin
 
-export EDITOR=nano
+export EDITOR=vim
 export PAGER=less
 
 export SENDMAIL=msmtp

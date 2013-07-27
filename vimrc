@@ -1,3 +1,5 @@
+" .vimrc
+
 if &termencoding == ""
   let &termencoding = &encoding
 endif
@@ -7,84 +9,115 @@ set fileencodings=ucs-bom,utf-8,latin1
 filetype plugin indent on
 syntax on
 
-" montre l'encodage dans la barre de status
-set statusline=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P
-set laststatus=2 " toujours montrer la barre de status
+set nocompatible
+set modelines=0
+set bs=indent,eol,start
 
-set nocompatible " use Vim defaults (much better!)
-set bs=indent,eol,start " allow backspacing over everything in insert mode
+set autoread                 " auto read again when file changed from outside
+set hidden                   " allow editing without save and losing changes
+
+set backup
+set backupdir=~/.vim/backup/
+set undofile
+set undodir=~/.vim/undodir
+set undolevels=1000          " max num of changes that can be undone
+set undoreload=10000         " max num lines to save for undo on buffer reload
+
+
+set viminfo='20,\"50
+set history=50
+
+set ttyfast
 
 set autoindent
+set nowrap
+set textwidth=79
 
-set tabstop=4 "To insert space characters whenever the tab key is pressed
-set shiftwidth=4 "To control the number of space characters that will be inserted when the tab key is pressed
-set expandtab "To change the number of space characters inserted for indentation
-set softtabstop=4 " makes the spaces feel like real tabs
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
 
-set autoread " set to auto read when a file is changed from the outside
-set hidden "change buffer without saving
+nnoremap / /\v
+vnoremap / /\v
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
 
-set backup " keep a backup file
-set backupdir=~/.vim/backup/ " choose the backup directory
+set ruler
+set showcmd
+set relativenumber
+set cursorline
+set colorcolumn=+1
+set statusline=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P
+set laststatus=2
 
-set viminfo='20,\"50 " read/write a .viminfo file, don't store more than 50 lines of registers
-set history=50 " keep 50 lines of command line history
+set wildmenu
+set wildmode=list:longest
 
-set ruler " show the cursor position all the time
-set number " montre le numÃ©ro de la ligne
+" generic maps
+inoremap ii <Esc>
 
-set mouse=a " need gpm
+" bépo keyboard maps
+nnoremap r :
+nnoremap x v
 
-set hlsearch " highlight search things
-set incsearch " make search act like search in modern browsers
+nnoremap x v
+vnoremap x v
+nnoremap v x
+vnoremap v x
+nnoremap l y
+vnoremap l y
+nnoremap j p
+vnoremap j p
 
-" maps pour le clavier bÃ©po
-"nnoremap r :
-"nnoremap Ã© v
+nnoremap p $
+vnoremap p $
+nnoremap b ^
+vnoremap b ^
 
-"nnoremap n h
-"vnoremap n h
-"nnoremap m j
-"vnoremap m j
-"nnoremap z k
-"vnoremap z k
-"nnoremap Ã§ l
-"vnoremap Ã§ l
-"nnoremap w $
-"vnoremap w $
-"nnoremap j ^
-"vnoremap j ^
-
-"cnoremap z q
-"cnoremap q z
-"cnoremap j !
-"cnoremap ! j
+cnoremap z q
+cnoremap j !
 
 nnoremap a <C-r>
-cnoremap mm bn<Enter>
-cnoremap qq bd<Enter>
+cnoremap çç bn<Enter>
+cnoremap mm bd<Enter>
+
+vnoremap <F5> "+x
+vnoremap <F6> "+y
+nnoremap <F7> "+gP
+
+nnoremap <F2> :set spell! spell?<CR>
+nnoremap <F3> :%!indent<CR>
+nnoremap <F4> :r!date "+\%d.\%m.\%y \%H:\%M"<CR>
 
 set spelllang=fr,en
 
 colorscheme torte
 
-nnoremap <F2> :set spell! spell?<CR>
-nnoremap <F4> :%!indent<CR>
-inoremap ii <Esc>
-
-" supprime les espaces en fin de ligne
-autocmd BufWrite * :%s/\s\+$//e
-" In text files, always limit the width of text to 78 characters
-autocmd BufRead *.txt set tw=78
-" When editing a file, always jump to the last cursor position
+autocmd BufWrite * :%s/\s\+$//e                     " delete trailing spaces
+autocmd BufRead *.txt set tw=79                     " in .txt, limit the text width
 autocmd BufReadPost *
 \ if line("'\"") > 0 && line ("'\"") <= line("$") |
 \   exe "normal! g'\"" |
-\ endif
-" don't write swapfile on most commonly used directories for NFS mounts or USB sticks
-autocmd BufNewFile,BufReadPre /media/*,/mnt/* set directory=~/tmp,/var/tmp,/tmp
+\ endif                                             " jump to last cursor position when editing
+autocmd BufNewFile,BufReadPre
+\ /media/*,/mnt/* set directory=~/tmp,/var/tmp,/tmp " don't write swapfile on most commonly used directories for NFS mounts or USB sticks
 
-" Don't wake up system with blinking cursor:
-" http://www.linuxpowertop.org/known.php
-let &guicursor = &guicursor . ",a:blinkon0"
+execute pathogen#infect()
+
+let &guicursor = &guicursor . ",a:blinkon0"         " Don't wake up system with blinking cursor
+
+
+" plugins config
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1
+
+nnoremap P :TlistToggle<CR>
+let Tlist_Use_Horiz_Window = 1
+
+au BufNewFile,BufRead *.pas,*.PAS set ft=delphi
 

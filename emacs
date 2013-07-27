@@ -1,5 +1,4 @@
 ;;; .emacs
-
 ; -----------------------------------------------------------------------------
 
 ;; Daemon mode
@@ -35,7 +34,7 @@
 (require 'color-theme)
 (add-to-list 'load-path "~/.emacs.d/site-lisp/emacs-color-theme-solarized")
 (require 'color-theme-solarized)
-(color-theme-solarized-dark)
+(color-theme-solarized-light)
 
 (delete-selection-mode 1)
 
@@ -207,5 +206,4 @@
     (insert (format-time-string format))))
 
 ; -----------------------------------------------------------------------------
-
 ;eof
