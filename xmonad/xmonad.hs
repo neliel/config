@@ -1,11 +1,13 @@
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE Arrows #-}
+
 import XMonad
-import XMonad.Config.Azerty
+-- keyboard
+import XMonad.Actions.CycleWS
 import Graphics.X11.ExtraTypes.XF86
-import qualified Data.Map as M
+import qualified Data.Map        as M
+import qualified XMonad.StackSet as W
 import XMonad.Hooks.DynamicLog
---
-import XMonad.Actions.Volume
-import XMonad.Util.Dzen
 --
 import XMonad.Layout.NoBorders
 --
@@ -18,68 +20,58 @@ import XMonad.Layout.IM
 main :: IO ()
 main = xmonad =<< xmobar myConf
 
--- Main configuration, override the defaults to your liking.
+-- |Main configuration, override the defaults to your liking.
 myConf = defaultConfig
-                      { modMask     = mod4Mask
-                      , terminal    = "urxvt"
-                      , layoutHook  = smartBorders $ myLayout
-                      , workspaces  = myWorkspaces
-                      , manageHook  = myManageHook <+> manageHook defaultConfig
-                      , startupHook = myStartupHook
-                      , keys        = myKeys
-                      }
+   { modMask     = mod4Mask
+   , terminal    = "urxvt"
+   , layoutHook  = smartBorders $ myLayout
+   , workspaces  = myWS
+   , manageHook  = myManageHook <+> manageHook defaultConfig
+   , startupHook = myStartupHook
+   , keys        = myKeys }
 
--- | Workspaces redirection
+-- |Workspaces redirection
 myManageHook = composeAll
-    [ className =? "Emacs"     --> doShift "2:edit"
-    , className =? "Firefox"   --> doShift "3:web"
-    , className =? "Thunar"    --> doShift "4:browse"
+    [ className =? "Firefox"   --> doShift "3:web"
     , className =? "Pidgin"    --> doShift "6:pidgin"
-    , className =? "Smplayer"  --> doFloat
-    , appName   =? "Irssi"     --> doShift "5:irc"
-    ]
+    , className =? "Caja"      --> doShift "4:browse"
+    , appName   =? "Irssi"     --> doShift "5:irc" ]
 
+-- |Programs to start at login
 myStartupHook = do
-  spawn "feh --bg-scale /home/sarfraz/Images/1367684534_4464.jpg &"
-  spawn "pidgin"
-  spawn "emacs"
-  spawn "thunar"
-  spawn "urxvt -name Irssi -e screen irssi"
-  spawn "screen -d -m rtorrent"
+   spawn "pidgin"
+   spawn "caja"
+   spawn "urxvt -name Irssi -e screen irssi"
 
-alert    = dzenConfig centered . show . round
-centered =
-        onCurr (center 150 66)
-    >=> font "-*-Inconsolata-*-12-*-*-*-*-*-*-*"
-    >=> addArgs ["-bg", "black"]
-    >=> addArgs ["-fg", "grey"]
+-- |Keyboard keys
 
--- | Keyboard keys
+homeMask :: KeyMask
+homeMask =  133 -- from the xev data
+
 keysToAdd x =
     [ ((mod4Mask, xK_F4                   ), kill)
-    , ((0, xF86XK_Calculator              ), spawn "gnome-calculator")
-    , ((0, xF86XK_AudioLowerVolume        ), lowerVolume 10 >>= alert)
-    , ((0, xF86XK_AudioRaiseVolume        ), raiseVolume 10 >>= alert)
+    , ((0, xF86XK_Forward                 ), nextWS)
+    , ((0, xF86XK_Back                    ), prevWS)
+    , ((0, xK_Print                       ), spawn "mate-screenshot")
+    , ((0, xF86XK_Calculator              ), spawn "mate-calculator")
     , ((0, xF86XK_WWW                     ), spawn "firefox")
-    , ((0, xF86XK_HomePage                ), spawn "thunar")
-    , ((0, xF86XK_Search                  ), spawn "pidgin")
-    , ((0, xK_Print                       ), spawn "gnome-screenshot")
-    , ((mod4Mask, xK_f                    ), spawn "firefox")
-    , ((mod4Mask, xK_s                    ), spawn "thunar")
-    , ((mod4Mask, xK_z                    ), spawn "emacs")
-    ]
+    , ((0, xF86XK_HomePage                ), spawn "caja") ]
+    ++
+    [((m .|. homeMask, k), windows $ f i)
+       | (i, k) <- zip (XMonad.workspaces defaultConfig) [10 .. 15]
+       , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)] ]
 
 keysToDel x = [((mod4Mask .|. shiftMask), xK_c)] -- to delete the unused keys
 
 myKeys x = foldr M.delete (keysToAdd' x) (keysToDel x)
   where
     -- to include new keys to existing keys
-    keysToAdd' x = M.union (keys azertyConfig x) (M.fromList (keysToAdd x))
+    keysToAdd' x = M.union (keys defaultConfig x) (M.fromList (keysToAdd x))
 
--- | Workspaces listing
-myWorkspaces = ["1:main", "2:edit", "3:web", "4:browse", "5:irc", "6:pidgin"]
+-- |Workspaces listing
+myWS = ["1:main", "2:edit", "3:web", "4:browse", "5:irc", "6:pidgin"]
 
--- | Default layout
+-- |Default layout
 myLayout = pidgin $ Mirror tiled ||| tiled ||| Full
     where
         -- pidgin conf

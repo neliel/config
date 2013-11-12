@@ -13,29 +13,32 @@ set nocompatible
 set modelines=0
 set bs=indent,eol,start
 
-set autoread                 " auto read again when file changed from outside
-set hidden                   " allow editing without save and losing changes
+set autoread
+set hidden
 
 set backup
 set backupdir=~/.vim/backup/
-set undofile
-set undodir=~/.vim/undodir
-set undolevels=1000          " max num of changes that can be undone
-set undoreload=10000         " max num lines to save for undo on buffer reload
-
+"set undofile
+"set undodir=~/.vim/undodir
+"set undolevels=1000
+"set undoreload=10000
 
 set viminfo='20,\"50
 set history=50
 
 set ttyfast
+set noerrorbells
 
 set autoindent
 set nowrap
 set textwidth=79
 
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set list
+set listchars=tab:>.,trail:.,extends:#,nbsp:.
+
+set tabstop=3
+set shiftwidth=3
+set softtabstop=3
 set expandtab
 
 nnoremap / /\v
@@ -47,14 +50,13 @@ set smartcase
 
 set ruler
 set showcmd
-set relativenumber
-set cursorline
-set colorcolumn=+1
+"set relativenumber
 set statusline=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P
 set laststatus=2
 
 set wildmenu
 set wildmode=list:longest
+set wildignore=*.swp,*.bak
 
 " generic maps
 inoremap ii <Esc>
@@ -88,29 +90,30 @@ vnoremap <F5> "+x
 vnoremap <F6> "+y
 nnoremap <F7> "+gP
 
+"set spellang=fr,en
 nnoremap <F2> :set spell! spell?<CR>
-nnoremap <F3> :%!indent<CR>
-nnoremap <F4> :r!date "+\%d.\%m.\%y \%H:\%M"<CR>
-
-set spelllang=fr,en
-
-colorscheme torte
-
-autocmd BufWrite * :%s/\s\+$//e                     " delete trailing spaces
-autocmd BufRead *.txt set tw=79                     " in .txt, limit the text width
-autocmd BufReadPost *
-\ if line("'\"") > 0 && line ("'\"") <= line("$") |
-\   exe "normal! g'\"" |
-\ endif                                             " jump to last cursor position when editing
-autocmd BufNewFile,BufReadPre
-\ /media/*,/mnt/* set directory=~/tmp,/var/tmp,/tmp " don't write swapfile on most commonly used directories for NFS mounts or USB sticks
 
 execute pathogen#infect()
 
-let &guicursor = &guicursor . ",a:blinkon0"         " Don't wake up system with blinking cursor
+if has("gui_running")
+   set cursorline
+"   set colorcolumn=+1
+   set bg=light
+   colorscheme solarized
+else
+   colorscheme peachpuff
+endif
 
+autocmd BufWrite * :%s/\s\+$//e
+autocmd BufReadPost *
+\ if line("'\"") > 0 && line ("'\"") <= line("$") |
+\   exe "normal! g'\"" |
+\ endif
+autocmd BufNewFile,BufReadPre
+\ /media/*,/mnt/* set directory=~/tmp,/var/tmp,/tmp
 
-" plugins config
+" plugins
+
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
@@ -120,4 +123,8 @@ nnoremap P :TlistToggle<CR>
 let Tlist_Use_Horiz_Window = 1
 
 au BufNewFile,BufRead *.pas,*.PAS set ft=delphi
+
+let g:hasksyn_indent_search_backward = 100
+let g:hasksyn_dedent_after_return = 1
+let g:hasksyn_dedent_after_catchall_case = 1
 

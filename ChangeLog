@@ -26,3 +26,12 @@
 	+ new format for ChangeLog
 	+ returned to vim so updated config
 	+ deleted all branches exept master
+* 1.0.0.4
+	+ removed emacs from main to its own
+	+ fixed msmtprc and fetchmailrc cert path
+	+ consolidated bashrc and muttrc
+	+ ajusted rtorrent speed
+	+ globally updated all config
+	+ removed git-credential, nanorc and nzbget
+	+ added archive folder
+	+ removed font from vim and transition to Automatic Pro

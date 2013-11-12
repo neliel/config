@@ -17,7 +17,7 @@ URxvt.scrollBar:          false
 !URxvt.scrollstyle:       xterm
 
 URxvt.font:               xft:Bitstream Vera Sans Mono:pixelsize=15
-URxvt.geometry:          99x33
+URxvt.geometry:          86x16
 !URxvt*borderLess:        true
 
 URxvt.perl-ext-common:    default,matcher,tabbed,clipboard
